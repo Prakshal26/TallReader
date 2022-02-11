@@ -9,11 +9,14 @@ public class DataMapping {
     public static final String VOUCHER = "Voucher";
     public static final String GROUPMASTER = "GroupMaster";
     public static final String VOUCHERTRANSACTION = "Transaction";
+    public static final String COSTCENTER = "CostCenter";
 
     public static final Map<String,String> typeXMLMapper = Map.ofEntries(
-            Map.entry(LEDGER,"LedMaster.xml"),
-            Map.entry(VOUCHER,"VchTypMaster.xml"),
-            Map.entry(GROUPMASTER,"GroupMaster.xml"),
-            Map.entry(VOUCHERTRANSACTION,"Vchtran.xml")
+            Map.entry(LEDGER,"Req_LedgerMaster.xml"),
+            Map.entry(VOUCHER,"Req_VoucherMaster.xml"),
+            Map.entry(GROUPMASTER,"Req_GroupMaster.xml"),
+            Map.entry(VOUCHERTRANSACTION,"Req_T.xml"),
+            Map.entry(COSTCENTER,"Req_CostCenterMaster.xml")
+
     );
 }

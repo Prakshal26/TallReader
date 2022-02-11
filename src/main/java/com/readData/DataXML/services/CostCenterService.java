@@ -1,8 +1,11 @@
 package com.readData.DataXML.services;
 
+import com.readData.DataXML.Utility.CostCenterProcessor;
 import com.readData.DataXML.Utility.GroupMasterProcessor;
 import com.readData.DataXML.Utility.Utility;
+import com.readData.DataXML.models.CostCenter;
 import com.readData.DataXML.models.GroupMaster;
+import com.readData.DataXML.repositories.CostCenterRepository;
 import com.readData.DataXML.repositories.GroupMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,20 +13,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GroupMasterService {
+public class CostCenterService {
 
     @Autowired
-    GroupMasterRepository groupMasterRepository;
+    CostCenterRepository costCenterRepository;
 
     @Autowired
     Utility utility;
 
     @Autowired
-    GroupMasterProcessor groupMasterProcessor;
+    CostCenterProcessor costCenterProcessor;
 
     public int processContent(String requestType) throws Exception {
 
-        List<GroupMaster> groupMasterList = groupMasterProcessor.processGroupMaster(utility.processAndGiveDoc(requestType));
-       return groupMasterRepository.saveAll(groupMasterList).size();
+        List<CostCenter> costCenterList = costCenterProcessor.processCostCenter(utility.processAndGiveDoc(requestType));
+        return costCenterRepository.saveAll(costCenterList).size();
     }
 }

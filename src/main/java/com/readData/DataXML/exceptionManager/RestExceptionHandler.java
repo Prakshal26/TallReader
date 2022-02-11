@@ -10,9 +10,9 @@ import java.io.FileNotFoundException;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(value = {InvalidQueryTypeException.class})
+    @ExceptionHandler(value = {CustomException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse InvalidQueryType(InvalidQueryTypeException ex) {
+    public ErrorResponse InvalidQueryType(CustomException ex) {
         return new ErrorResponse(404,ex.getMessage());
     }
     @ExceptionHandler(value = {FileNotFoundException.class})
@@ -21,9 +21,10 @@ public class RestExceptionHandler {
         return new ErrorResponse(404,"Xml Corresponding to Query type Not Found");
     }
 
-    @ExceptionHandler(value = {Exception.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse exception(Exception ex) {
-        return new ErrorResponse(404,ex.getMessage());
-    }
+//    @ExceptionHandler(value = {Exception.class})
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public ErrorResponse exception(Exception ex) {
+//        System.out.println(ex);
+//        return new ErrorResponse(404,ex.getMessage());
+//    }
 }

@@ -12,7 +12,7 @@ public class PaymentDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "ledger_id")

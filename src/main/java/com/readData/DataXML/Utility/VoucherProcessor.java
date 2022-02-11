@@ -17,6 +17,7 @@ public class VoucherProcessor {
         List<Voucher> voucherList = new ArrayList<>();
         for (int i=0;i<nodeList.getLength();i++) {
             Node voucherNode = nodeList.item(i);
+            if(!voucherNode.hasAttributes()) continue;
             NodeList voucherNodeChildNodes = voucherNode.getChildNodes();
             Voucher voucher = new Voucher();
             voucher.setVOUCHERTYPENAME(voucherNode.getAttributes().getNamedItem("NAME").getNodeValue());

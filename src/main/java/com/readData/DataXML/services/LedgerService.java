@@ -6,6 +6,7 @@ import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.repositories.LedgerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@Component
+@Service
 public class LedgerService {
 
     private final LedgerRepository ledgerRepository;
@@ -29,9 +30,9 @@ public class LedgerService {
         this.ledgerRepository = ledgerRepository;
     }
 
-    public int processContent(File targetFile) throws IOException, SAXException, ParserConfigurationException {
+    public int processContent(String requestType) throws Exception {
 
-        List<Ledger> ledgerList = ledgerProcessor.processLedger(utility.processDom(targetFile));
+        List<Ledger> ledgerList = ledgerProcessor.processLedger(utility.processAndGiveDoc(requestType));
        return ledgerRepository.saveAll(ledgerList).size();
     }
 

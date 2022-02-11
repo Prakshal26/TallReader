@@ -2,7 +2,6 @@ package com.readData.DataXML.services;
 
 import com.readData.DataXML.Utility.TransactionProcessor;
 import com.readData.DataXML.Utility.Utility;
-import com.readData.DataXML.models.GroupMaster;
 import com.readData.DataXML.models.Transaction;
 import com.readData.DataXML.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,9 @@ public class TransactionService {
     @Autowired
     Utility utility;
 
-    public int processContent(File targetFile) throws IOException, SAXException, ParserConfigurationException {
+    public int processContent(String requestType) throws Exception {
 
-        List<Transaction> transactionList = transactionProcessor.processTransaction(utility.processDom(targetFile));
-        System.out.println(transactionList.size());
+        List<Transaction> transactionList = transactionProcessor.processTransaction(utility.processAndGiveDoc(requestType));
         return transactionRepository.saveAll(transactionList).size();
     }
 }

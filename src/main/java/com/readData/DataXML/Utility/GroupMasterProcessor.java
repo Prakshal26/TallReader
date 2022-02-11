@@ -17,6 +17,7 @@ public class GroupMasterProcessor {
         List<GroupMaster> groupMasterList = new ArrayList<>();
         for (int i=0;i<nodeList.getLength();i++) {
             Node groupMasterNode = nodeList.item(i);
+            if(!groupMasterNode.hasAttributes()) continue;
             NodeList groupMasterNodeChildNodes = groupMasterNode.getChildNodes();
             GroupMaster groupMaster = new GroupMaster();
             groupMaster.setGROUPNAME(groupMasterNode.getAttributes().getNamedItem("NAME").getNodeValue());

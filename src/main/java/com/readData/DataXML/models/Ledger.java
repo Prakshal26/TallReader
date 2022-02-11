@@ -39,10 +39,10 @@ public class Ledger {
     String OPENINGBALANCE;
     String BALANCE;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger",orphanRemoval = true)
     List<PaymentDetails> paymentDetails = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger",orphanRemoval = true)
     List<BillAllocation> billAllocationDetails = new ArrayList<>();
 
 }

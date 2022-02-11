@@ -5,13 +5,16 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class Utility {
@@ -19,11 +22,12 @@ public class Utility {
     @Autowired
     TallyRequest tallyRequest;
 
-    public Document processDom(File targetFile) throws ParserConfigurationException, IOException, SAXException {
+    private Document processDom(InputStream stream) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(targetFile);
+        Document doc = dBuilder.parse(new InputSource(stream));
         doc.getDocumentElement().normalize();
+        
         return doc;
     }
     public String processContent(Node node, String tag) {
@@ -35,12 +39,18 @@ public class Utility {
         return address.toString();
     }
 
-    public File processAndGiveFile(String requestType) throws IOException {
-        // InputStream response = tallyRequest.makeRequest(requestType);
+    public Document processAndGiveDoc(String requestType) throws Exception {
 
-        File targetFile = new File(tallyRequest.createRequest(requestType));
-        //  FileUtils.copyInputStreamToFile(response, targetFile);
-        // response.close();
-        return  targetFile;
+        InputStream response = tallyRequest.makeRequest(requestType);
+        String text = new String(response.readAllBytes(), StandardCharsets.UTF_8);
+        text = "<?xml version=\"1.1\"?>"+text;
+
+        InputStream inputStream = new ByteArrayInputStream(text.getBytes());
+
+//        File targetFile = new File("response.xml");
+//        FileUtils.copyInputStreamToFile(response, targetFile);
+//        response.close();
+        //return  response;
+        return this.processDom(inputStream);
     }
 }

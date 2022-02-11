@@ -1,6 +1,5 @@
 package com.readData.DataXML.Utility;
 
-import com.readData.DataXML.models.BillAllocation;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.models.PaymentDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.transform.TransformerException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,9 @@ public class LedgerProcessor {
 
     @Autowired
     Utility utility;
+
+    @Autowired
+    BillAllocationProcessor billAllocationProcessor;
 
     private PaymentDetails processPayment(Node node) {
         PaymentDetails paymentDetails = new PaymentDetails();
@@ -35,27 +38,13 @@ public class LedgerProcessor {
         return paymentDetails;
     }
 
-    private BillAllocation processBillAllocationList(Node node) {
-        BillAllocation billAllocation = new BillAllocation();
-        NodeList nl = node.getChildNodes();
-        for(int i=0;i< nl.getLength();i++) {
-            Node child=nl.item(i);
-            if(child.getNodeName().equals("BILLDATE"))billAllocation.setBILLDATE(child.getTextContent().trim());
-            if(child.getNodeName().equals("NAME"))billAllocation.setNAME(child.getTextContent().trim());
-            if(child.getNodeName().equals("BILLCREDITPERIOD"))billAllocation.setBILLCREDITPERIOD(child.getTextContent().trim());
-            if(child.getNodeName().equals("ISADVANCE"))billAllocation.setISADVANCE(child.getTextContent().trim());
-            if(child.getNodeName().equals("OPENINGBALANCE"))billAllocation.setOPENINGBALANCE(child.getTextContent().trim());
-        }
-        if(billAllocation.getNAME()==null) return null;
-        billAllocation.setBILLTYPE("On Opening");
-        return billAllocation;
-    }
+    public List<Ledger> processLedger(Document doc) throws TransformerException {
 
-    public List<Ledger> processLedger(Document doc) {
         NodeList nodeList = doc.getElementsByTagName("LEDGER");
         List<Ledger> ledgerList = new ArrayList<>();
         for (int i=0;i<nodeList.getLength();i++) {
             Node ledgerNode = nodeList.item(i);
+            if(!ledgerNode.hasAttributes()) continue;
             NodeList ledgerChildList = ledgerNode.getChildNodes();
             Ledger ledger = new Ledger();
             ledger.setName(ledgerNode.getAttributes().getNamedItem("NAME").getNodeValue());
@@ -83,8 +72,8 @@ public class LedgerProcessor {
                     ledger.getPaymentDetails().add(processPayment(n));
                     ledger.getPaymentDetails().forEach(e->e.setLedger(ledger));
                 }
-                if(n.getNodeName().equals("BILLALLOCATIONS.LIST")&&processBillAllocationList(n)!=null) {
-                    ledger.getBillAllocationDetails().add(processBillAllocationList(n));
+                if(n.getNodeName().equals("BILLALLOCATIONS.LIST")&&billAllocationProcessor.processBillAllocationList(n)!=null) {
+                    ledger.getBillAllocationDetails().add(billAllocationProcessor.processBillAllocationList(n));
                     ledger.getBillAllocationDetails().forEach(e->e.setLedger(ledger));
                 }
             }

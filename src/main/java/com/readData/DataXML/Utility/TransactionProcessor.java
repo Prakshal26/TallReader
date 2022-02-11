@@ -1,6 +1,7 @@
 package com.readData.DataXML.Utility;
 
 import com.readData.DataXML.commons.DataMapping;
+import com.readData.DataXML.exceptionManager.CustomException;
 import com.readData.DataXML.models.BillAllocation;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.models.Transaction;
@@ -26,21 +27,11 @@ public class TransactionProcessor {
     @Autowired
     LedgerService ledgerService;
 
-    private BillAllocation processBillAllocationList(Node node) {
-        BillAllocation billAllocation = new BillAllocation();
-        NodeList nl = node.getChildNodes();
-        for(int i=0;i< nl.getLength();i++) {
-            Node child=nl.item(i);
-            if(child.getNodeName().equals("NAME"))billAllocation.setNAME(child.getTextContent().trim());
-            if(child.getNodeName().equals("AMOUNT"))billAllocation.setOPENINGBALANCE(child.getTextContent().trim());
-            if(child.getNodeName().equals("ISADVANCE"))billAllocation.setISADVANCE(child.getTextContent().trim());
-            if(child.getNodeName().equals("BILLTYPE"))billAllocation.setBILLTYPE(child.getTextContent().trim());
-        }
-        if(billAllocation.getBILLDATE()==null) return null;
-        return billAllocation;
-    }
+    @Autowired
+    BillAllocationProcessor billAllocationProcessor;
 
-    private void processLegerAllocations(Node node) throws IOException, ParserConfigurationException, SAXException {
+
+    private Ledger getLedger(Node node) throws Exception {
 
         NodeList nl = node.getChildNodes();
         String st ="";
@@ -48,27 +39,35 @@ public class TransactionProcessor {
             Node child=nl.item(i);
             if(child.getNodeName().equals("LEDGERNAME")) st = child.getTextContent().trim();
         }
-
         if (!st.equals("")) {
-           Ledger ledger =  ledgerService.findByName(st);
-           if (ledger==null) {
-               ledgerService.processContent(utility.processAndGiveFile(DataMapping.LEDGER));
-           }
+            Ledger ledger =  ledgerService.findByName(st);
+            if (ledger==null) {
+                ledgerService.processContent(DataMapping.LEDGER);
+                ledger = ledgerService.findByName(st);
+            }
+            if(ledger==null) throw new CustomException("Ledger is Not Available"); else return ledger;
         } else {
-            throw new RuntimeException("Empty Ledger name in Voucher Transaction");
+            throw new CustomException("Empty Ledger name in Voucher Transaction");
         }
-
-        for(int i=0;i< nl.getLength();i++) {
-            Node child=nl.item(i);
-//            if(child.getNodeName().equals("BILLALLOCATIONS.LIST")&&processBillAllocationList(child)!=null) {
-//                ledger.getBillAllocationDetails().add(processBillAllocationList(child));
-//                ledger.getBillAllocationDetails().forEach(e->e.setLedger(ledger));
-//            }
-        }
-
     }
 
-    public List<Transaction> processTransaction(Document doc) {
+    private List<BillAllocation> processLegerAllocations(Node node) throws IOException, ParserConfigurationException, SAXException {
+
+        List<BillAllocation> billAllocationList = new ArrayList<>();
+        NodeList nl = node.getChildNodes();
+        for(int i=0;i< nl.getLength();i++) {
+            Node child=nl.item(i);
+            if(child.getNodeName().equals("BILLALLOCATIONS.LIST")) {
+                BillAllocation billAllocation = billAllocationProcessor.processBillAllocationList(child);
+                if (billAllocation!=null) {
+                    billAllocationList.add(billAllocation);
+                }
+            }
+        }
+        if(billAllocationList.size()>0) return billAllocationList; else return null;
+    }
+
+    public List<Transaction> processTransaction(Document doc) throws Exception {
         NodeList nodeList = doc.getElementsByTagName("VOUCHER");
         List<Transaction> transactionList = new ArrayList<>();
         for (int i=0;i<nodeList.getLength();i++) {
@@ -85,7 +84,13 @@ public class TransactionProcessor {
                 if(n.getNodeName().equals("PARTYLEDGERNAME")) transaction.setPARTYLEDGERNAME(n.getTextContent().trim());
 
                 if(n.getNodeName().equals("ALLLEDGERENTRIES.LIST")) {
-
+                    Ledger ledger = getLedger(n);
+                    List<BillAllocation> billAllocationList = processLegerAllocations(n);
+                    if(billAllocationList!=null) {
+                        billAllocationList.forEach(e->e.setLedger(ledger));
+                        billAllocationList.forEach(e->e.setTransaction(transaction));
+                        transaction.getBillAllocation().addAll(billAllocationList);
+                    }
                 }
             }
             transactionList.add(transaction);

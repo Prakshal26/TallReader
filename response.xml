@@ -1,0 +1,344 @@
+<?xml version="1.1"?><ENVELOPE>
+    <HEADER>
+        <VERSION>1</VERSION>
+        <STATUS>1</STATUS>
+    </HEADER>
+    <BODY>
+        <DESC>
+            <CMPINFO>
+                <COMPANY>0</COMPANY>
+                <GROUP>0</GROUP>
+                <LEDGER>0</LEDGER>
+                <COSTCATEGORY>0</COSTCATEGORY>
+                <COSTCENTRE>0</COSTCENTRE>
+                <GODOWN>0</GODOWN>
+                <STOCKGROUP>0</STOCKGROUP>
+                <STOCKCATEGORY>0</STOCKCATEGORY>
+                <STOCKITEM>0</STOCKITEM>
+                <VOUCHERTYPE>0</VOUCHERTYPE>
+                <CURRENCY>0</CURRENCY>
+                <UNIT>0</UNIT>
+                <BUDGET>0</BUDGET>
+                <CLIENTRULE>0</CLIENTRULE>
+                <SERVERRULE>0</SERVERRULE>
+                <STATE>0</STATE>
+                <TDSRATE>0</TDSRATE>
+                <TAXCLASSIFICATION>0</TAXCLASSIFICATION>
+                <STCATEGORY>0</STCATEGORY>
+                <DEDUCTEETYPE>0</DEDUCTEETYPE>
+                <ATTENDANCETYPE>0</ATTENDANCETYPE>
+                <FBTCATEGORY>0</FBTCATEGORY>
+                <FBTASSESSEETYPE>0</FBTASSESSEETYPE>
+                <TARIFFCLASSIFICATION>0</TARIFFCLASSIFICATION>
+                <EXCISEDUTYCLASSIFICATION>0</EXCISEDUTYCLASSIFICATION>
+                <SERIALNUMBER>0</SERIALNUMBER>
+                <ADJUSTMENTCLASSIFICATION>0</ADJUSTMENTCLASSIFICATION>
+                <INCOMETAXSLAB>0</INCOMETAXSLAB>
+                <INCOMETAXCLASSIFICATION>0</INCOMETAXCLASSIFICATION>
+                <LBTCLASSIFICATION>0</LBTCLASSIFICATION>
+                <TAXUNIT>0</TAXUNIT>
+                <RETURNMASTER>0</RETURNMASTER>
+                <VOUCHER>0</VOUCHER>
+            </CMPINFO>
+        </DESC>
+        <DATA>
+            <COLLECTION ISMSTDEPTYPE="Yes" MSTDEPTYPE="8">
+                <LEDGER NAME="Cash" RESERVEDNAME="">
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-00000667</GUID>
+                    <PARENT TYPE="String">Cash-in-hand</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5192</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Cash</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="LIAB - PROFESSIONAL TAX" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>LIAB - PROFESSIONAL TAX</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-000000fc</GUID>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <PARENT TYPE="String">Current Liabilities</PARENT>
+                    <LEDSTATENAME TYPE="String">Maharashtra</LEDSTATENAME>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5047</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>LIAB - PROFESSIONAL TAX</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Mohan" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>Mohan</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-0000065c</GUID>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <GSTREGISTRATIONTYPE TYPE="String">Regular</GSTREGISTRATIONTYPE>
+                    <PARENT TYPE="String">Staff</PARENT>
+                    <LEDSTATENAME TYPE="String">Maharashtra</LEDSTATENAME>
+                    <ISBILLWISEON TYPE="Logical">Yes</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5176</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Mohan</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="NAPL Ghaziabad WH" RESERVEDNAME="">
+                    <ADDRESS.LIST TYPE="String">
+                        <ADDRESS>Vasawari Street</ADDRESS>
+                        <ADDRESS>Pune Road</ADDRESS>
+                        <ADDRESS>Mumbai</ADDRESS>
+                    </ADDRESS.LIST>
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>NAPL Ghaziabad WH</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-00000664</GUID>
+                    <EMAIL TYPE="String">email@tallysolutions.com</EMAIL>
+                    <PINCODE TYPE="String">410002</PINCODE>
+                    <INCOMETAXNUMBER TYPE="String">AFLPF4253A</INCOMETAXNUMBER>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <GSTREGISTRATIONTYPE TYPE="String">Regular</GSTREGISTRATIONTYPE>
+                    <PARENT TYPE="String">Sundry Debtors</PARENT>
+                    <BILLCREDITPERIOD TYPE="String">30 Days</BILLCREDITPERIOD>
+                    <EMAILCC TYPE="String">secondemail@tallysolutions.com</EMAILCC>
+                    <LEDGERPHONE TYPE="String">9400094000</LEDGERPHONE>
+                    <LEDGERCONTACT TYPE="String">Mr. Deepak Jain</LEDGERCONTACT>
+                    <LEDGERMOBILE TYPE="String">9044490444</LEDGERMOBILE>
+                    <PARTYGSTIN TYPE="String">05AFLPJ5243A1Z6</PARTYGSTIN>
+                    <ISBILLWISEON TYPE="Logical">Yes</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5211</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">-3000.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>NAPL Ghaziabad WH</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>
+                        <IFSCODE TYPE="String">IFSC0123456</IFSCODE>
+                        <BANKNAME TYPE="String">State Bank of India</BANKNAME>
+                        <ACCOUNTNUMBER TYPE="String">12345599963</ACCOUNTNUMBER>
+                        <PAYMENTFAVOURING TYPE="String">NAPL Ghaziabad WH</PAYMENTFAVOURING>
+                        <TRANSACTIONNAME TYPE="String">Primary</TRANSACTIONNAME>
+                        <SETASDEFAULT TYPE="Logical">No</SETASDEFAULT>
+                        <DEFAULTTRANSACTIONTYPE TYPE="String">Inter Bank Transfer</DEFAULTTRANSACTIONTYPE>
+                        <BENEFICIARYCODEDETAILS.LIST>      </BENEFICIARYCODEDETAILS.LIST>
+                    </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>
+                        <BILLDATE TYPE="Date">20190301</BILLDATE>
+                        <NAME TYPE="String">FirstRef</NAME>
+                        <BILLCREDITPERIOD TYPE="Due Date" JD="43524" P="31-Mar-2019">31-Mar-2019</BILLCREDITPERIOD>
+                        <OPENINGBALANCE TYPE="Amount">-1200.00</OPENINGBALANCE>
+                        <INTERESTCOLLECTION.LIST>      </INTERESTCOLLECTION.LIST>
+                    </BILLALLOCATIONS.LIST>
+                    <BILLALLOCATIONS.LIST>
+                        <BILLDATE TYPE="Date">20190331</BILLDATE>
+                        <NAME TYPE="String">SecondRef</NAME>
+                        <BILLCREDITPERIOD TYPE="Due Date" JD="43554" P="31-Mar-2019">31-Mar-2019</BILLCREDITPERIOD>
+                        <OPENINGBALANCE TYPE="Amount">-1000.00</OPENINGBALANCE>
+                        <INTERESTCOLLECTION.LIST>      </INTERESTCOLLECTION.LIST>
+                    </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Narang Access Private Limited Bhiwandi WH" RESERVEDNAME="">
+                    <ADDRESS.LIST TYPE="String">
+                        <ADDRESS>Address 1</ADDRESS>
+                        <ADDRESS>Address 2</ADDRESS>
+                        <ADDRESS>Address3</ADDRESS>
+                    </ADDRESS.LIST>
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>Narang Access Private Limited Bhiwandi WH</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-00000662</GUID>
+                    <PINCODE TYPE="String">248001</PINCODE>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <GSTREGISTRATIONTYPE TYPE="String">Regular</GSTREGISTRATIONTYPE>
+                    <PARENT TYPE="String">Sundry Debtors</PARENT>
+                    <LEDGERPHONE TYPE="String">Ds</LEDGERPHONE>
+                    <LEDGERCONTACT TYPE="String">Sds</LEDGERCONTACT>
+                    <LEDGERMOBILE TYPE="String">D</LEDGERMOBILE>
+                    <ISBILLWISEON TYPE="Logical">Yes</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5187</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Narang Access Private Limited Bhiwandi WH</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Narang Access Private Limited Delhi WH" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>Narang Access Private Limited Delhi WH</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-00000663</GUID>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <GSTREGISTRATIONTYPE TYPE="String">Regular</GSTREGISTRATIONTYPE>
+                    <PARENT TYPE="String">Sundry Debtors</PARENT>
+                    <ISBILLWISEON TYPE="Logical">Yes</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5188</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Narang Access Private Limited Delhi WH</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="O/S LIAB - EXPENSES" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>O/S LIAB - EXPENSES</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-000000e1</GUID>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <PARENT TYPE="String">Current Liabilities</PARENT>
+                    <LEDSTATENAME TYPE="String">Maharashtra</LEDSTATENAME>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5051</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>O/S LIAB - EXPENSES</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Petrol Expenses" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>Petrol Expenses</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-0000065e</GUID>
+                    <PARENT TYPE="String">Indirect Expenses</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5205</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Petrol Expenses</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Profit &amp; Loss A/c" RESERVEDNAME="Profit &amp; Loss A/c">
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-0000001e</GUID>
+                    <PARENT TYPE="String">&#4; Primary</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">No</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5054</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Profit &amp; Loss A/c</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="SALARY - OFFICE ASST" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>SALARY - OFFICE ASST</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-000000ff</GUID>
+                    <PARENT TYPE="String">SALARY TO STAFF</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5210</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>SALARY - OFFICE ASST</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Sales" RESERVEDNAME="">
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-00000665</GUID>
+                    <PARENT TYPE="String">Sales Accounts</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5190</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Sales</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Samta and Associates" RESERVEDNAME="">
+                    <MAILINGNAME.LIST TYPE="String">
+                        <MAILINGNAME>Samta and Associates</MAILINGNAME>
+                    </MAILINGNAME.LIST>
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-0000065f</GUID>
+                    <COUNTRYNAME TYPE="String">India</COUNTRYNAME>
+                    <GSTREGISTRATIONTYPE TYPE="String">Regular</GSTREGISTRATIONTYPE>
+                    <PARENT TYPE="String">Sundry Creditors</PARENT>
+                    <ISBILLWISEON TYPE="Logical">Yes</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5206</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Samta and Associates</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+                <LEDGER NAME="Travelling Expenses" RESERVEDNAME="">
+                    <GUID TYPE="String">f9871ad6-6b1f-4ed8-b0ab-ae023b3d9a67-0000065a</GUID>
+                    <PARENT TYPE="String">Indirect Expenses</PARENT>
+                    <ISBILLWISEON TYPE="Logical">No</ISBILLWISEON>
+                    <ISCOSTCENTRESON TYPE="Logical">Yes</ISCOSTCENTRESON>
+                    <ALTERID TYPE="Number"> 5174</ALTERID>
+                    <OPENINGBALANCE TYPE="Amount">0.00</OPENINGBALANCE>
+                    <LANGUAGENAME.LIST>
+                        <NAME.LIST TYPE="String">
+                            <NAME>Travelling Expenses</NAME>
+                        </NAME.LIST>
+                        <LANGUAGEID TYPE="Number"> 1033</LANGUAGEID>
+                    </LANGUAGENAME.LIST>
+                    <PAYMENTDETAILS.LIST>     </PAYMENTDETAILS.LIST>
+                    <BILLALLOCATIONS.LIST>     </BILLALLOCATIONS.LIST>
+                </LEDGER>
+            </COLLECTION>
+        </DATA>
+    </BODY>
+</ENVELOPE>

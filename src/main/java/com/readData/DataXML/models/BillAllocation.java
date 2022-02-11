@@ -14,7 +14,6 @@ public class BillAllocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "ledger_id")
     Ledger ledger;
@@ -26,4 +25,7 @@ public class BillAllocation {
     String OPENINGBALANCE;
     String BILLTYPE;
 
+    @ManyToOne
+    @JoinColumn(name="transaction_id")
+    Transaction transaction;
 }

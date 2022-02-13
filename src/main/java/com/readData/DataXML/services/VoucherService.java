@@ -28,6 +28,7 @@ public class VoucherService {
     public int processContent(String requestType) throws Exception {
 
         List<Voucher> voucherList = voucherProcessor.processVoucher(utility.processAndGiveDoc(requestType));
+        voucherRepository.deleteAll();
         return voucherRepository.saveAll(voucherList).size();
     }
 }

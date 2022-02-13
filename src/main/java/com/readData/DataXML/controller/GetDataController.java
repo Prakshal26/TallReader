@@ -1,8 +1,7 @@
 package com.readData.DataXML.controller;
 
-import com.readData.DataXML.Utility.TallyRequest;
-import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.commons.DataMapping;
+import com.readData.DataXML.exceptionManager.CustomException;
 import com.readData.DataXML.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GetDataController {
-
-    @Autowired
-    TallyRequest tallyRequest;
 
     @Autowired
     LedgerService ledgerService;
@@ -29,9 +25,6 @@ public class GetDataController {
 
     @Autowired
     CostCenterService costCenterService;
-
-    @Autowired
-    Utility utility;
 
     @GetMapping("/getData")
     public String getLedgers(@RequestParam("type")String requestType) throws Exception {
@@ -53,6 +46,8 @@ public class GetDataController {
             case DataMapping.COSTCENTER:
                 count = costCenterService.processContent(requestType);
                 break;
+            default:
+                throw new CustomException("Invalid Query Type");
         }
 
         return "Inserted/Updated "+count+" "+requestType;

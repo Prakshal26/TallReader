@@ -15,6 +15,7 @@ public class RestExceptionHandler {
     public ErrorResponse InvalidQueryType(CustomException ex) {
         return new ErrorResponse(404,ex.getMessage());
     }
+
     @ExceptionHandler(value = {FileNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse fileNotFound(FileNotFoundException ex) {

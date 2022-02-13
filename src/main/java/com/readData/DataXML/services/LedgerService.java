@@ -5,13 +5,8 @@ import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.repositories.LedgerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -33,6 +28,7 @@ public class LedgerService {
     public int processContent(String requestType) throws Exception {
 
         List<Ledger> ledgerList = ledgerProcessor.processLedger(utility.processAndGiveDoc(requestType));
+        ledgerRepository.deleteAll();
        return ledgerRepository.saveAll(ledgerList).size();
     }
 

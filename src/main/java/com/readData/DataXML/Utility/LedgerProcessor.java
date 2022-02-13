@@ -52,6 +52,7 @@ public class LedgerProcessor {
                 Node n = ledgerChildList.item(j);
                 if(n.getNodeName().equals("ADDRESS.LIST")) ledger.setAddress(utility.processContent(n,"ADDRESS"));
                 if(n.getNodeName().equals("GUID")) ledger.setGUID(n.getTextContent().trim());
+                if(n.getNodeName().equals("PARENT")) ledger.setPARENT(n.getTextContent().trim());
                 if(n.getNodeName().equals("MAILINGNAME.LIST")) ledger.setMAILINGNAME(utility.processContent(n,"MAILINGNAME"));
                 if(n.getNodeName().equals("EMAIL")) ledger.setEMAIL(n.getTextContent().trim());
                 if(n.getNodeName().equals("PINCODE")) ledger.setEMAIL(n.getTextContent().trim());

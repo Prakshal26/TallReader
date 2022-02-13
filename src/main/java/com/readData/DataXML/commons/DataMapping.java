@@ -15,7 +15,7 @@ public class DataMapping {
             Map.entry(LEDGER,"Req_LedgerMaster.xml"),
             Map.entry(VOUCHER,"Req_VoucherMaster.xml"),
             Map.entry(GROUPMASTER,"Req_GroupMaster.xml"),
-            Map.entry(VOUCHERTRANSACTION,"Req_T.xml"),
+            Map.entry(VOUCHERTRANSACTION,"Req_Transaction.xml"),
             Map.entry(COSTCENTER,"Req_CostCenterMaster.xml")
 
     );

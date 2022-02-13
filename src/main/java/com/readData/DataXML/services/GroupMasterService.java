@@ -24,6 +24,7 @@ public class GroupMasterService {
     public int processContent(String requestType) throws Exception {
 
         List<GroupMaster> groupMasterList = groupMasterProcessor.processGroupMaster(utility.processAndGiveDoc(requestType));
+        groupMasterRepository.deleteAll();
        return groupMasterRepository.saveAll(groupMasterList).size();
     }
 }

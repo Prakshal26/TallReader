@@ -1,0 +1,28 @@
+<ENVELOPE>
+<HEADER>
+<TALLYREQUEST>Export Data</TALLYREQUEST>
+</HEADER>
+<BODY>
+<EXPORTDATA>
+<REQUESTDESC>
+<STATICVARIABLES>
+<SVEXPORTFORMAT>$$SysName:XML</SVEXPORTFORMAT>
+<!--Specify the Period here-->
+<SVFROMDATE>20190401</SVFROMDATE>
+<SVTODATE>20190402</SVTODATE>
+<!--Detailed or Condensed Format-->
+<EXPLODEFLAG>Yes</EXPLODEFLAG>
+</STATICVARIABLES>
+<TDL>
+<TDLMESSAGE>
+<COLLECTION NAME="List of Vouchers" ISMODIFY="No">
+                  <FETCH>Date, ReferenceDate, Reference, GUID,Narration, VoucherTypeName, VoucherNumber, PartyLedgerName, AlteredBy, AlterId, MasterId, VoucherKey, Allledgerentries.list</FETCH>
+</COLLECTION>
+</TDLMESSAGE>
+</TDL>
+<!--Specify the Report Name here-->
+<REPORTNAME>Voucher Register</REPORTNAME>
+</REQUESTDESC>
+</EXPORTDATA>
+</BODY>
+</ENVELOPE>

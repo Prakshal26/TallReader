@@ -50,25 +50,29 @@ public class LedgerProcessor {
             ledger.setName(ledgerNode.getAttributes().getNamedItem("NAME").getNodeValue());
             for (int j=0;j<ledgerChildList.getLength();j++) {
                 Node n = ledgerChildList.item(j);
-                if(n.getNodeName().equals("ADDRESS.LIST")) ledger.setAddress(utility.processContent(n,"ADDRESS"));
                 if(n.getNodeName().equals("GUID")) ledger.setGUID(n.getTextContent().trim());
                 if(n.getNodeName().equals("PARENT")) ledger.setPARENT(n.getTextContent().trim());
-                if(n.getNodeName().equals("MAILINGNAME.LIST")) ledger.setMAILINGNAME(utility.processContent(n,"MAILINGNAME"));
+                if(n.getNodeName().equals("ADDRESS.LIST")) ledger.getADDRESS().add(utility.processContent(n,"ADDRESS"));
+                if(n.getNodeName().equals("MAILINGNAME.LIST")) ledger.getMAILINGNAME().add(utility.processContent(n,"MAILINGNAME"));
                 if(n.getNodeName().equals("EMAIL")) ledger.setEMAIL(n.getTextContent().trim());
-                if(n.getNodeName().equals("PINCODE")) ledger.setEMAIL(n.getTextContent().trim());
+                if(n.getNodeName().equals("PINCODE")) ledger.setPINCODE(n.getTextContent().trim());
                 if(n.getNodeName().equals("INCOMETAXNUMBER")) ledger.setINCOMETAXNUMBER(n.getTextContent().trim());
+                if(n.getNodeName().equals("COUNTRYNAME")) ledger.setCOUNTRYNAME(n.getTextContent().trim());
+                if(n.getNodeName().equals("GSTREGISTRATIONTYPE")) ledger.setGSTREGISTRATIONTYPE(n.getTextContent().trim());
+                if(n.getNodeName().equals("CREATEDBY")) ledger.setCREATEDBY(n.getTextContent().trim());
+                if(n.getNodeName().equals("ALTEREDBY")) ledger.setALTEREDBY(n.getTextContent().trim());
                 if(n.getNodeName().equals("BILLCREDITPERIOD")) ledger.setBILLCREDITPERIOD(n.getTextContent().trim());
                 if(n.getNodeName().equals("EMAILCC")) ledger.setEMAILCC(n.getTextContent().trim());
                 if(n.getNodeName().equals("LEDGERPHONE")) ledger.setLEDGERPHONE(n.getTextContent().trim());
-                if(n.getNodeName().equals("LEDGERMOBILE")) ledger.setLEDGERMOBILE(n.getTextContent().trim());
                 if(n.getNodeName().equals("LEDGERCONTACT")) ledger.setLEDGERCONTACT(n.getTextContent().trim());
+                if(n.getNodeName().equals("LEDGERMOBILE")) ledger.setLEDGERMOBILE(n.getTextContent().trim());
                 if(n.getNodeName().equals("PARTYGSTIN")) ledger.setPARTYGSTIN(n.getTextContent().trim());
+                if(n.getNodeName().equals("LEDSTATENAME")) ledger.setLEDSTATENAME(n.getTextContent().trim());
                 if(n.getNodeName().equals("ISBILLWISEON")) ledger.setISBILLWISEON(n.getTextContent().trim());
                 if(n.getNodeName().equals("ISCOSTCENTRESON")) ledger.setISCOSTCENTRESON(n.getTextContent().trim());
-                if(n.getNodeName().equals("ISTDSAPPLICABLE")) ledger.setISTDSAPPLICABLE(n.getTextContent().trim());
                 if(n.getNodeName().equals("ALTERID")) ledger.setALTERID(n.getTextContent().trim());
                 if(n.getNodeName().equals("OPENINGBALANCE")) ledger.setOPENINGBALANCE(n.getTextContent().trim());
-                if(n.getNodeName().equals("BALANCE")) ledger.setBALANCE(n.getTextContent().trim());
+              //  if(n.getNodeName().equals("NAME.LIST")) ledger.getMAILINGNAME().add(utility.processContent(n,"MAILINGNAME"));
                 if(n.getNodeName().equals("PAYMENTDETAILS.LIST")&&processPayment(n)!=null) {
                     ledger.getPaymentDetails().add(processPayment(n));
                     ledger.getPaymentDetails().forEach(e->e.setLedger(ledger));

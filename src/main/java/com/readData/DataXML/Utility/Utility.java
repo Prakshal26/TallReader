@@ -34,9 +34,9 @@ public class Utility {
         NodeList nl = node.getChildNodes();
         StringBuilder address = new StringBuilder();
         for(int i=0;i< nl.getLength();i++) {
-            if(nl.item(i).getNodeName().equals(tag))address.append(nl.item(0).getTextContent().trim());
+            if(nl.item(i).getNodeName().equals(tag))address.append(nl.item(i).getTextContent().trim()).append(" ");
         }
-        return address.toString();
+        return address.toString().trim();
     }
 
     public Document processAndGiveDoc(String requestType) throws Exception {

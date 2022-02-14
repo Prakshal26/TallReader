@@ -1,5 +1,6 @@
 package com.readData.DataXML.models;
 
+import com.readData.DataXML.convertors.StringListConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,26 +19,37 @@ public class Ledger {
     @Id
     String GUID;
     String name;
-    String MAILINGNAME;
+    String PARENT;
 
-    String address;
+    @Convert(converter = StringListConverter.class)
+    List<String> ADDRESS = new ArrayList<>();
+
+    //@ElementCollection(targetClass=String.class
+    @Convert(converter = StringListConverter.class)
+    List<String> MAILINGNAME = new ArrayList<>();
+
     String EMAIL;
     String PINCODE;
     String INCOMETAXNUMBER;
+    String COUNTRYNAME;
     String GSTREGISTRATIONTYPE;
-    String PARENT;
+
+    String CREATEDBY;
+    String ALTEREDBY;
     String BILLCREDITPERIOD;
     String EMAILCC;
     String LEDGERPHONE;
     String LEDGERCONTACT;
     String LEDGERMOBILE;
     String PARTYGSTIN;
+    String LEDSTATENAME;
     String ISBILLWISEON;
     String ISCOSTCENTRESON;
-    String ISTDSAPPLICABLE;
     String ALTERID;
     String OPENINGBALANCE;
-    String BALANCE;
+
+//    @Convert(converter = StringListConverter.class)
+//    List<String> NAME = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger",orphanRemoval = true)
     List<PaymentDetails> paymentDetails = new ArrayList<>();

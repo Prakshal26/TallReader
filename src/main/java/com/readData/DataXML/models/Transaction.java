@@ -24,7 +24,7 @@ public class Transaction {
     String VOUCHERNUMBER;
     String PARTYLEDGERNAME;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "transaction", orphanRemoval = true)
-    List<BillAllocation> billAllocation = new ArrayList<>();
 
+    @OneToMany(mappedBy = "transaction",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<TransactionLedger> transactionLedgerList = new ArrayList<>();
 }

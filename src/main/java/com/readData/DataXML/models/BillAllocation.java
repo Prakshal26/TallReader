@@ -18,14 +18,15 @@ public class BillAllocation {
     @JoinColumn(name = "ledger_id")
     Ledger ledger;
 
+    @ManyToOne
+    @JoinColumn(name = "transaction_ledger_id")
+    TransactionLedger transactionLedger;
+
+
     String BILLDATE;
     String NAME;
     String BILLCREDITPERIOD;
     String ISADVANCE;
     String OPENINGBALANCE;
     String BILLTYPE;
-
-    @ManyToOne
-    @JoinColumn(name="transaction_id")
-    Transaction transaction;
 }

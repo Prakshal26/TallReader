@@ -5,16 +5,14 @@ import com.readData.DataXML.exceptionManager.CustomException;
 import com.readData.DataXML.models.BillAllocation;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.models.Transaction;
+import com.readData.DataXML.models.TransactionLedger;
 import com.readData.DataXML.services.LedgerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +49,10 @@ public class TransactionProcessor {
         }
     }
 
-    private List<BillAllocation> processLegerAllocations(Node node) throws IOException, ParserConfigurationException, SAXException {
+    private TransactionLedger processLegerAllocations(Node node) throws Exception {
 
+        Ledger ledger = getLedger(node);
+        TransactionLedger transactionLedger=new TransactionLedger();
         List<BillAllocation> billAllocationList = new ArrayList<>();
         NodeList nl = node.getChildNodes();
         for(int i=0;i< nl.getLength();i++) {
@@ -60,11 +60,17 @@ public class TransactionProcessor {
             if(child.getNodeName().equals("BILLALLOCATIONS.LIST")) {
                 BillAllocation billAllocation = billAllocationProcessor.processBillAllocationList(child);
                 if (billAllocation!=null) {
+                    billAllocation.setTransactionLedger(transactionLedger);
                     billAllocationList.add(billAllocation);
                 }
             }
+            if(child.getNodeName().equals("AMOUNT")) transactionLedger.setAMOUNT(child.getTextContent().trim());
+            if(child.getNodeName().equals("ISDEEMEDPOSITIVE")) transactionLedger.setISDEEMEDPOSITIVE(child.getTextContent().trim());
+
         }
-        if(billAllocationList.size()>0) return billAllocationList; else return null;
+        transactionLedger.setBillAllocationList(billAllocationList);
+        transactionLedger.setLedger(ledger);
+        return transactionLedger;
     }
 
     public List<Transaction> processTransaction(Document doc) throws Exception {
@@ -74,6 +80,8 @@ public class TransactionProcessor {
             Node transactionNode = nodeList.item(i);
             NodeList transactionNodeChildNodes = transactionNode.getChildNodes();
             Transaction transaction = new Transaction();
+            List<TransactionLedger> transactionLedgers = new ArrayList<>();
+            transaction.setTransactionLedgerList(transactionLedgers);
             for (int j=0;j<transactionNodeChildNodes.getLength();j++) {
                 Node n = transactionNodeChildNodes.item(j);
                 if(n.getNodeName().equals("DATE")) transaction.setDATE(n.getTextContent().trim());
@@ -84,13 +92,8 @@ public class TransactionProcessor {
                 if(n.getNodeName().equals("PARTYLEDGERNAME")) transaction.setPARTYLEDGERNAME(n.getTextContent().trim());
 
                 if(n.getNodeName().equals("ALLLEDGERENTRIES.LIST")) {
-                    Ledger ledger = getLedger(n);
-                    List<BillAllocation> billAllocationList = processLegerAllocations(n);
-                    if(billAllocationList!=null) {
-                        billAllocationList.forEach(e->e.setLedger(ledger));
-                        billAllocationList.forEach(e->e.setTransaction(transaction));
-                        transaction.getBillAllocation().addAll(billAllocationList);
-                    }
+                    transactionLedgers.add(processLegerAllocations(n));
+                    transactionLedgers.forEach(e->e.setTransaction(transaction));
                 }
             }
             transactionList.add(transaction);

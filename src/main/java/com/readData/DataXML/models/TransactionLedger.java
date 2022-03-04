@@ -22,7 +22,7 @@ public class TransactionLedger {
     Ledger ledger;
 
     @ManyToOne
-    @JoinColumn(name="transaction_id")
+    @JoinColumn(name="transaction_guid")
     Transaction transaction;
 
     @OneToMany(mappedBy = "transactionLedger",cascade = CascadeType.ALL,orphanRemoval = true)

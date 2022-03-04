@@ -1,6 +1,6 @@
 package com.readData.DataXML.services;
 
-import com.readData.DataXML.Utility.GroupMasterProcessor;
+import com.readData.DataXML.contentProcessor.GroupMasterProcessor;
 import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.models.GroupMaster;
 import com.readData.DataXML.repositories.GroupMasterRepository;
@@ -24,7 +24,7 @@ public class GroupMasterService {
     public int processContent(String requestType) throws Exception {
 
         List<GroupMaster> groupMasterList = groupMasterProcessor.processGroupMaster(utility.processAndGiveDoc(requestType));
-        groupMasterRepository.deleteAll();
+       // groupMasterRepository.deleteAll();
        return groupMasterRepository.saveAll(groupMasterList).size();
     }
 }

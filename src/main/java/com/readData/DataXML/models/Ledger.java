@@ -55,6 +55,6 @@ public class Ledger {
     List<PaymentDetails> paymentDetails = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "ledger",orphanRemoval = true)
-    List<BillAllocation> billAllocationDetails = new ArrayList<>();
+    List<BillAllocationMaster> billAllocationMasterDetails = new ArrayList<>();
 
 }

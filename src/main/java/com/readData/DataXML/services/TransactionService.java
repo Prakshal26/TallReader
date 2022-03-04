@@ -1,6 +1,6 @@
 package com.readData.DataXML.services;
 
-import com.readData.DataXML.Utility.TransactionProcessor;
+import com.readData.DataXML.contentProcessor.TransactionProcessor;
 import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.models.Transaction;
 import com.readData.DataXML.repositories.TransactionRepository;
@@ -24,7 +24,7 @@ public class TransactionService {
     public int processContent(String requestType) throws Exception {
 
         List<Transaction> transactionList = transactionProcessor.processTransaction(utility.processAndGiveDoc(requestType));
-        transactionRepository.deleteAll();
+        //transactionRepository.deleteAll();
         return transactionRepository.saveAll(transactionList).size();
     }
 }

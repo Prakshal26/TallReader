@@ -27,7 +27,7 @@ public class TallyRequest {
             String inputXML="";
             try {
                 inputXML = Files.readString(Paths.get(createRequest(requestType)));
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | CustomException  e) {
                 throw new CustomException("Request File not Found " + DataMapping.typeXMLMapper.get(requestType));
             }
 

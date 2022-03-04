@@ -1,7 +1,7 @@
 package com.readData.DataXML.services;
 
 import com.readData.DataXML.Utility.Utility;
-import com.readData.DataXML.Utility.VoucherProcessor;
+import com.readData.DataXML.contentProcessor.VoucherProcessor;
 import com.readData.DataXML.models.Voucher;
 import com.readData.DataXML.repositories.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class VoucherService {
     public int processContent(String requestType) throws Exception {
 
         List<Voucher> voucherList = voucherProcessor.processVoucher(utility.processAndGiveDoc(requestType));
-        voucherRepository.deleteAll();
+       // voucherRepository.deleteAll();
         return voucherRepository.saveAll(voucherList).size();
     }
 }

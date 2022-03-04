@@ -1,8 +1,8 @@
 package com.readData.DataXML.services;
 
-import com.readData.DataXML.Utility.CostCenterProcessor;
 import com.readData.DataXML.Utility.Utility;
-import com.readData.DataXML.models.CostCenter;
+import com.readData.DataXML.contentProcessor.CostCenterMasterProcessor;
+import com.readData.DataXML.models.CostCenterMaster;
 import com.readData.DataXML.repositories.CostCenterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,11 @@ public class CostCenterService {
     Utility utility;
 
     @Autowired
-    CostCenterProcessor costCenterProcessor;
+    CostCenterMasterProcessor costCenterProcessorMaster;
 
     public int processContent(String requestType) throws Exception {
 
-        List<CostCenter> costCenterList = costCenterProcessor.processCostCenter(utility.processAndGiveDoc(requestType));
-        costCenterRepository.deleteAll();
-        return costCenterRepository.saveAll(costCenterList).size();
+        List<CostCenterMaster> costCenterMasterList = costCenterProcessorMaster.processCostCenter(utility.processAndGiveDoc(requestType));
+        return costCenterRepository.saveAll(costCenterMasterList).size();
     }
 }

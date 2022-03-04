@@ -1,11 +1,9 @@
-package com.readData.DataXML.Utility;
+package com.readData.DataXML.contentProcessor;
 
+import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.commons.DataMapping;
 import com.readData.DataXML.exceptionManager.CustomException;
-import com.readData.DataXML.models.BillAllocation;
-import com.readData.DataXML.models.Ledger;
-import com.readData.DataXML.models.Transaction;
-import com.readData.DataXML.models.TransactionLedger;
+import com.readData.DataXML.models.*;
 import com.readData.DataXML.services.LedgerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +24,10 @@ public class TransactionProcessor {
     LedgerService ledgerService;
 
     @Autowired
-    BillAllocationProcessor billAllocationProcessor;
+    BillAllocationTransactionProcessor billAllocationTransactionProcessor;
+
+    @Autowired
+    CostCenterTransactionProcessor costCenterTransactionProcessor;
 
 
     private Ledger getLedger(Node node) throws Exception {
@@ -53,22 +54,31 @@ public class TransactionProcessor {
 
         Ledger ledger = getLedger(node);
         TransactionLedger transactionLedger=new TransactionLedger();
-        List<BillAllocation> billAllocationList = new ArrayList<>();
+        List<BillAllocationTransaction> billAllocationTransactionList = new ArrayList<>();
+        List<CostCenterTransaction> costCenterTransactionList = new ArrayList<>();
         NodeList nl = node.getChildNodes();
         for(int i=0;i< nl.getLength();i++) {
             Node child=nl.item(i);
             if(child.getNodeName().equals("BILLALLOCATIONS.LIST")) {
-                BillAllocation billAllocation = billAllocationProcessor.processBillAllocationList(child);
-                if (billAllocation!=null) {
-                    billAllocation.setTransactionLedger(transactionLedger);
-                    billAllocationList.add(billAllocation);
+                BillAllocationTransaction billAllocationTransaction = billAllocationTransactionProcessor.processBillAllocationList(child);
+                if (billAllocationTransaction !=null) {
+                    billAllocationTransaction.setTransactionLedger(transactionLedger);
+                    billAllocationTransactionList.add(billAllocationTransaction);
+                }
+            }
+            if(child.getNodeName().equals("CATEGORYALLOCATIONS.LIST")) {
+                CostCenterTransaction costCenterTransaction = costCenterTransactionProcessor.processCostCenterInTransaction(child);
+                if (costCenterTransaction !=null) {
+                    costCenterTransaction.setTransactionLedger(transactionLedger);
+                    costCenterTransactionList.add(costCenterTransaction);
                 }
             }
             if(child.getNodeName().equals("AMOUNT")) transactionLedger.setAMOUNT(child.getTextContent().trim());
             if(child.getNodeName().equals("ISDEEMEDPOSITIVE")) transactionLedger.setISDEEMEDPOSITIVE(child.getTextContent().trim());
 
         }
-        transactionLedger.setBillAllocationList(billAllocationList);
+        transactionLedger.setBillAllocationTransactionList(billAllocationTransactionList);
+        transactionLedger.setCostCenterTransactionList(costCenterTransactionList);
         transactionLedger.setLedger(ledger);
         return transactionLedger;
     }

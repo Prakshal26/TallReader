@@ -1,6 +1,8 @@
 package com.readData.DataXML.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,7 +10,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class BillAllocation {
+@AllArgsConstructor
+@NoArgsConstructor
+public class BillAllocationMaster {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +22,6 @@ public class BillAllocation {
     @ManyToOne
     @JoinColumn(name = "ledger_id")
     Ledger ledger;
-
-    @ManyToOne
-    @JoinColumn(name = "transaction_ledger_id")
-    TransactionLedger transactionLedger;
-
 
     String BILLDATE;
     String NAME;

@@ -1,11 +1,13 @@
 package com.readData.DataXML.services;
 
-import com.readData.DataXML.Utility.LedgerProcessor;
 import com.readData.DataXML.Utility.Utility;
+import com.readData.DataXML.contentProcessor.LedgerProcessor;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.repositories.LedgerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+
 
 import java.util.List;
 
@@ -26,9 +28,9 @@ public class LedgerService {
     }
 
     public int processContent(String requestType) throws Exception {
+       Document doc = utility.processAndGiveDoc(requestType);
 
-        List<Ledger> ledgerList = ledgerProcessor.processLedger(utility.processAndGiveDoc(requestType));
-        ledgerRepository.deleteAll();
+       List<Ledger> ledgerList = ledgerProcessor.processLedger(doc);
        return ledgerRepository.saveAll(ledgerList).size();
     }
 

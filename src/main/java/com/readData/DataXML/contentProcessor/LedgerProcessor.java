@@ -1,5 +1,7 @@
-package com.readData.DataXML.Utility;
+package com.readData.DataXML.contentProcessor;
 
+import com.readData.DataXML.Utility.Utility;
+import com.readData.DataXML.models.BillAllocationMaster;
 import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.models.PaymentDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import javax.xml.transform.TransformerException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.readData.DataXML.Utility.SharedContentParser.*;
+
 @Component
 public class LedgerProcessor {
 
@@ -19,21 +23,32 @@ public class LedgerProcessor {
     Utility utility;
 
     @Autowired
-    BillAllocationProcessor billAllocationProcessor;
+    BillAllocationMasterProcessor billAllocationMasterProcessor;
 
-    private PaymentDetails processPayment(Node node) {
+    private PaymentDetails processPayment(Node n) {
+
         PaymentDetails paymentDetails = new PaymentDetails();
-        NodeList nl = node.getChildNodes();
-        for(int i=0;i< nl.getLength();i++) {
-            Node child=nl.item(i);
-            if(child.getNodeName().equals("IFSCODE"))paymentDetails.setIFSCODE(child.getTextContent().trim());
-            if(child.getNodeName().equals("BANKNAME"))paymentDetails.setBANKNAME(child.getTextContent().trim());
-            if(child.getNodeName().equals("ACCOUNTNUMBER"))paymentDetails.setACCOUNTNUMBER(child.getTextContent().trim());
-            if(child.getNodeName().equals("PAYMENTFAVOURING"))paymentDetails.setPAYMENTFAVOURING(child.getTextContent().trim());
-            if(child.getNodeName().equals("TRANSACTIONNAME"))paymentDetails.setTRANSACTIONNAME(child.getTextContent().trim());
-            if(child.getNodeName().equals("SETASDEFAULT"))paymentDetails.setSETASDEFAULT(child.getTextContent().trim());
-            if(child.getNodeName().equals("DEFAULTTRANSACTIONTYPE"))paymentDetails.setDEFAULTTRANSACTIONTYPE(child.getTextContent().trim());
-        }
+        nodesIterator(n.getChildNodes(),(n1)->{
+            if(haveTag(n1,"IFSCODE"))paymentDetails.setIFSCODE(processContent(n1));
+            else if(haveTag(n1,"BANKNAME"))paymentDetails.setBANKNAME(processContent(n1));
+            else if(haveTag(n1,"ACCOUNTNUMBER"))paymentDetails.setACCOUNTNUMBER(processContent(n1));
+            else if(haveTag(n1,"PAYMENTFAVOURING"))paymentDetails.setPAYMENTFAVOURING(processContent(n1));
+            else if(haveTag(n1,"TRANSACTIONNAME"))paymentDetails.setTRANSACTIONNAME(processContent(n1));
+            else if(haveTag(n1,"SETASDEFAULT"))paymentDetails.setSETASDEFAULT(processContent(n1));
+            else if(haveTag(n1,"DEFAULTTRANSACTIONTYPE"))paymentDetails.setDEFAULTTRANSACTIONTYPE(processContent(n1));
+        });
+
+//        NodeList nl = node.getChildNodes();
+//        for(int i=0;i< nl.getLength();i++) {
+//            Node child=nl.item(i);
+//            if(child.getNodeName().equals("IFSCODE"))paymentDetails.setIFSCODE(child.getTextContent().trim());
+//            if(child.getNodeName().equals("BANKNAME"))paymentDetails.setBANKNAME(child.getTextContent().trim());
+//            if(child.getNodeName().equals("ACCOUNTNUMBER"))paymentDetails.setACCOUNTNUMBER(child.getTextContent().trim());
+//            if(child.getNodeName().equals("PAYMENTFAVOURING"))paymentDetails.setPAYMENTFAVOURING(child.getTextContent().trim());
+//            if(child.getNodeName().equals("TRANSACTIONNAME"))paymentDetails.setTRANSACTIONNAME(child.getTextContent().trim());
+//            if(child.getNodeName().equals("SETASDEFAULT"))paymentDetails.setSETASDEFAULT(child.getTextContent().trim());
+//            if(child.getNodeName().equals("DEFAULTTRANSACTIONTYPE"))paymentDetails.setDEFAULTTRANSACTIONTYPE(child.getTextContent().trim());
+//        }
         if(paymentDetails.getACCOUNTNUMBER()==null) return null;
         return paymentDetails;
     }
@@ -72,14 +87,20 @@ public class LedgerProcessor {
                 if(n.getNodeName().equals("ISCOSTCENTRESON")) ledger.setISCOSTCENTRESON(n.getTextContent().trim());
                 if(n.getNodeName().equals("ALTERID")) ledger.setALTERID(n.getTextContent().trim());
                 if(n.getNodeName().equals("OPENINGBALANCE")) ledger.setOPENINGBALANCE(n.getTextContent().trim());
-              //  if(n.getNodeName().equals("NAME.LIST")) ledger.getMAILINGNAME().add(utility.processContent(n,"MAILINGNAME"));
-                if(n.getNodeName().equals("PAYMENTDETAILS.LIST")&&processPayment(n)!=null) {
-                    ledger.getPaymentDetails().add(processPayment(n));
-                    ledger.getPaymentDetails().forEach(e->e.setLedger(ledger));
+                if(n.getNodeName().equals("PAYMENTDETAILS.LIST")) {
+                    PaymentDetails paymentDetails = processPayment(n);
+                    if (paymentDetails!=null) {
+                        ledger.getPaymentDetails().add(processPayment(n));
+                        ledger.getPaymentDetails().forEach(e -> e.setLedger(ledger));
+                    }
                 }
-                if(n.getNodeName().equals("BILLALLOCATIONS.LIST")&&billAllocationProcessor.processBillAllocationList(n)!=null) {
-                    ledger.getBillAllocationDetails().add(billAllocationProcessor.processBillAllocationList(n));
-                    ledger.getBillAllocationDetails().forEach(e->e.setLedger(ledger));
+                if(n.getNodeName().equals("BILLALLOCATIONS.LIST")) {
+                    BillAllocationMaster billAllocationMaster =
+                            billAllocationMasterProcessor.processBillAllocationList(n);
+                    if(billAllocationMaster!=null) {
+                        ledger.getBillAllocationMasterDetails().add(billAllocationMaster);
+                        ledger.getBillAllocationMasterDetails().forEach(e->e.setLedger(ledger));
+                    }
                 }
             }
             ledgerList.add(ledger);

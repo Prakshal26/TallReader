@@ -26,5 +26,8 @@ public class TransactionLedger {
     Transaction transaction;
 
     @OneToMany(mappedBy = "transactionLedger",cascade = CascadeType.ALL,orphanRemoval = true)
-    List<BillAllocation> billAllocationList = new ArrayList<>();
+    List<BillAllocationTransaction> billAllocationTransactionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "transactionLedger",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<CostCenterTransaction> costCenterTransactionList = new ArrayList<>();
 }

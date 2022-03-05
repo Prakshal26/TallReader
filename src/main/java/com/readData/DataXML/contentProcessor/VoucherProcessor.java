@@ -23,7 +23,7 @@ public class VoucherProcessor {
             voucher.setVOUCHERTYPENAME(voucherNode.getAttributes().getNamedItem("NAME").getNodeValue());
             for (int j=0;j<voucherNodeChildNodes.getLength();j++) {
                 Node n = voucherNodeChildNodes.item(j);
-                if(n.getNodeName().equals("GUID")) voucher.setGUID(n.getTextContent().trim());
+                if(n.getNodeName().equals("GUID")) voucher.setGuid(n.getTextContent().trim());
                 if(n.getNodeName().equals("PARENT")) voucher.setPARENT(n.getTextContent().trim());
                 if(n.getNodeName().equals("NUMBERINGMETHOD")) voucher.setNUMBERINGMETHOD(n.getTextContent().trim());
                 if(n.getNodeName().equals("ALTERID")) voucher.setALTERID(n.getTextContent().trim());

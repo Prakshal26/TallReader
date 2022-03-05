@@ -1,5 +1,6 @@
 package com.readData.DataXML.contentProcessor;
 
+import com.readData.DataXML.Utility.SharedContentParser;
 import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.models.BillAllocationMaster;
 import com.readData.DataXML.models.Ledger;
@@ -38,17 +39,6 @@ public class LedgerProcessor {
             else if(haveTag(n1,"DEFAULTTRANSACTIONTYPE"))paymentDetails.setDEFAULTTRANSACTIONTYPE(processContent(n1));
         });
 
-//        NodeList nl = node.getChildNodes();
-//        for(int i=0;i< nl.getLength();i++) {
-//            Node child=nl.item(i);
-//            if(child.getNodeName().equals("IFSCODE"))paymentDetails.setIFSCODE(child.getTextContent().trim());
-//            if(child.getNodeName().equals("BANKNAME"))paymentDetails.setBANKNAME(child.getTextContent().trim());
-//            if(child.getNodeName().equals("ACCOUNTNUMBER"))paymentDetails.setACCOUNTNUMBER(child.getTextContent().trim());
-//            if(child.getNodeName().equals("PAYMENTFAVOURING"))paymentDetails.setPAYMENTFAVOURING(child.getTextContent().trim());
-//            if(child.getNodeName().equals("TRANSACTIONNAME"))paymentDetails.setTRANSACTIONNAME(child.getTextContent().trim());
-//            if(child.getNodeName().equals("SETASDEFAULT"))paymentDetails.setSETASDEFAULT(child.getTextContent().trim());
-//            if(child.getNodeName().equals("DEFAULTTRANSACTIONTYPE"))paymentDetails.setDEFAULTTRANSACTIONTYPE(child.getTextContent().trim());
-//        }
         if(paymentDetails.getACCOUNTNUMBER()==null) return null;
         return paymentDetails;
     }
@@ -57,54 +47,52 @@ public class LedgerProcessor {
 
         NodeList nodeList = doc.getElementsByTagName("LEDGER");
         List<Ledger> ledgerList = new ArrayList<>();
-        for (int i=0;i<nodeList.getLength();i++) {
-            Node ledgerNode = nodeList.item(i);
-            if(!ledgerNode.hasAttributes()) continue;
-            NodeList ledgerChildList = ledgerNode.getChildNodes();
-            Ledger ledger = new Ledger();
-            ledger.setName(ledgerNode.getAttributes().getNamedItem("NAME").getNodeValue());
-            for (int j=0;j<ledgerChildList.getLength();j++) {
-                Node n = ledgerChildList.item(j);
-                if(n.getNodeName().equals("GUID")) ledger.setGUID(n.getTextContent().trim());
-                if(n.getNodeName().equals("PARENT")) ledger.setPARENT(n.getTextContent().trim());
-                if(n.getNodeName().equals("ADDRESS.LIST")) ledger.getADDRESS().add(utility.processContent(n,"ADDRESS"));
-                if(n.getNodeName().equals("MAILINGNAME.LIST")) ledger.getMAILINGNAME().add(utility.processContent(n,"MAILINGNAME"));
-                if(n.getNodeName().equals("EMAIL")) ledger.setEMAIL(n.getTextContent().trim());
-                if(n.getNodeName().equals("PINCODE")) ledger.setPINCODE(n.getTextContent().trim());
-                if(n.getNodeName().equals("INCOMETAXNUMBER")) ledger.setINCOMETAXNUMBER(n.getTextContent().trim());
-                if(n.getNodeName().equals("COUNTRYNAME")) ledger.setCOUNTRYNAME(n.getTextContent().trim());
-                if(n.getNodeName().equals("GSTREGISTRATIONTYPE")) ledger.setGSTREGISTRATIONTYPE(n.getTextContent().trim());
-                if(n.getNodeName().equals("CREATEDBY")) ledger.setCREATEDBY(n.getTextContent().trim());
-                if(n.getNodeName().equals("ALTEREDBY")) ledger.setALTEREDBY(n.getTextContent().trim());
-                if(n.getNodeName().equals("BILLCREDITPERIOD")) ledger.setBILLCREDITPERIOD(n.getTextContent().trim());
-                if(n.getNodeName().equals("EMAILCC")) ledger.setEMAILCC(n.getTextContent().trim());
-                if(n.getNodeName().equals("LEDGERPHONE")) ledger.setLEDGERPHONE(n.getTextContent().trim());
-                if(n.getNodeName().equals("LEDGERCONTACT")) ledger.setLEDGERCONTACT(n.getTextContent().trim());
-                if(n.getNodeName().equals("LEDGERMOBILE")) ledger.setLEDGERMOBILE(n.getTextContent().trim());
-                if(n.getNodeName().equals("PARTYGSTIN")) ledger.setPARTYGSTIN(n.getTextContent().trim());
-                if(n.getNodeName().equals("LEDSTATENAME")) ledger.setLEDSTATENAME(n.getTextContent().trim());
-                if(n.getNodeName().equals("ISBILLWISEON")) ledger.setISBILLWISEON(n.getTextContent().trim());
-                if(n.getNodeName().equals("ISCOSTCENTRESON")) ledger.setISCOSTCENTRESON(n.getTextContent().trim());
-                if(n.getNodeName().equals("ALTERID")) ledger.setALTERID(n.getTextContent().trim());
-                if(n.getNodeName().equals("OPENINGBALANCE")) ledger.setOPENINGBALANCE(n.getTextContent().trim());
-                if(n.getNodeName().equals("PAYMENTDETAILS.LIST")) {
-                    PaymentDetails paymentDetails = processPayment(n);
-                    if (paymentDetails!=null) {
-                        ledger.getPaymentDetails().add(processPayment(n));
-                        ledger.getPaymentDetails().forEach(e -> e.setLedger(ledger));
+        nodesIterator(nodeList,(n1)->{
+            if(n1.hasAttributes()) {
+                Ledger ledger = new Ledger();
+                ledger.setName(SharedContentParser.getAttribute(n1,"NAME"));
+                nodesIterator(n1.getChildNodes(),(n2)->{
+                    if(haveTag(n2,"GUID")) ledger.setGuid(processContent(n2));
+                    else if(haveTag(n2,"PARENT")) ledger.setPARENT(processContent(n2));
+                    else if(haveTag(n2,"ADDRESS.LIST")) ledger.getADDRESS().add(utility.processContent(n2,"ADDRESS"));
+                    else if(haveTag(n2,"MAILINGNAME.LIST")) ledger.getMAILINGNAME().add(utility.processContent(n2,"MAILINGNAME"));
+                    else if(haveTag(n2,"EMAIL")) ledger.setEMAIL(processContent(n2));
+                    else if(haveTag(n2,"PINCODE")) ledger.setPINCODE(processContent(n2));
+                    else if(haveTag(n2,"INCOMETAXNUMBER")) ledger.setINCOMETAXNUMBER(processContent(n2));
+                    else if(haveTag(n2,"COUNTRYNAME")) ledger.setCOUNTRYNAME(processContent(n2));
+                    else if(haveTag(n2,"GSTREGISTRATIONTYPE")) ledger.setGSTREGISTRATIONTYPE(processContent(n2));
+                    else if(haveTag(n2,"CREATEDBY")) ledger.setCREATEDBY(processContent(n2));
+                    else if(haveTag(n2,"ALTEREDBY")) ledger.setALTEREDBY(processContent(n2));
+                    else if(haveTag(n2,"BILLCREDITPERIOD")) ledger.setBILLCREDITPERIOD(processContent(n2));
+                    else if(haveTag(n2,"EMAILCC")) ledger.setEMAILCC(processContent(n2));
+                    else if(haveTag(n2,"LEDGERPHONE")) ledger.setLEDGERPHONE(processContent(n2));
+                    else if(haveTag(n2,"LEDGERCONTACT")) ledger.setLEDGERCONTACT(processContent(n2));
+                    else if(haveTag(n2,"LEDGERMOBILE")) ledger.setLEDGERMOBILE(processContent(n2));
+                    else if(haveTag(n2,"PARTYGSTIN")) ledger.setPARTYGSTIN(processContent(n2));
+                    else if(haveTag(n2,"LEDSTATENAME")) ledger.setLEDSTATENAME(processContent(n2));
+                    else if(haveTag(n2,"ISBILLWISEON")) ledger.setISBILLWISEON(processContent(n2));
+                    else if(haveTag(n2,"ISCOSTCENTRESON")) ledger.setISCOSTCENTRESON(processContent(n2));
+                    else if(haveTag(n2,"ALTERID")) ledger.setALTERID(processContent(n2));
+                    else if(haveTag(n2,"OPENINGBALANCE")) ledger.setOPENINGBALANCE(processContent(n2));
+                    else if(haveTag(n2,"PAYMENTDETAILS.LIST")) {
+                        PaymentDetails paymentDetails = processPayment(n2);
+                        if (paymentDetails!=null) {
+                            ledger.getPaymentDetails().add(paymentDetails);
+                            ledger.getPaymentDetails().forEach(e -> e.setLedger(ledger));
+                        }
                     }
-                }
-                if(n.getNodeName().equals("BILLALLOCATIONS.LIST")) {
-                    BillAllocationMaster billAllocationMaster =
-                            billAllocationMasterProcessor.processBillAllocationList(n);
-                    if(billAllocationMaster!=null) {
-                        ledger.getBillAllocationMasterDetails().add(billAllocationMaster);
-                        ledger.getBillAllocationMasterDetails().forEach(e->e.setLedger(ledger));
+                    else if(haveTag(n2,"BILLALLOCATIONS.LIST")) {
+                        BillAllocationMaster billAllocationMaster =
+                                billAllocationMasterProcessor.processBillAllocationList(n2);
+                        if(billAllocationMaster!=null) {
+                            ledger.getBillAllocationMasterDetails().add(billAllocationMaster);
+                            ledger.getBillAllocationMasterDetails().forEach(e->e.setLedger(ledger));
+                        }
                     }
-                }
+                });
+                ledgerList.add(ledger);
             }
-            ledgerList.add(ledger);
-        }
+        });
         return ledgerList;
     }
 }

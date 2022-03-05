@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class GroupMaster {
 
     @Id
-    String GUID;
+    String guid;
 
     String GROUPNAME;
     String PARENT;

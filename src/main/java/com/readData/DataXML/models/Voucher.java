@@ -15,7 +15,7 @@ public class Voucher {
     String VOUCHERTYPENAME;
 
     @Id
-    String GUID;
+    String guid;
     String PARENT;
     String NUMBERINGMETHOD;
     String ALTERID;

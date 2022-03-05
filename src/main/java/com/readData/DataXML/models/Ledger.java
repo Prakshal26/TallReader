@@ -17,7 +17,7 @@ import java.util.List;
 public class Ledger {
 
     @Id
-    String GUID;
+    String guid;
     String name;
     String PARENT;
 

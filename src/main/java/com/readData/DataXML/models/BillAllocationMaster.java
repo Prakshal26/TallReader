@@ -20,7 +20,7 @@ public class BillAllocationMaster {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ledger_id")
+    @JoinColumn(name = "ledger_guid")
     Ledger ledger;
 
     String BILLDATE;

@@ -2,6 +2,7 @@ package com.readData.DataXML.contentProcessor;
 
 import com.readData.DataXML.Utility.Utility;
 import com.readData.DataXML.commons.DataMapping;
+import com.readData.DataXML.dao.TransactionAlterAndGuid;
 import com.readData.DataXML.exceptionManager.CustomException;
 import com.readData.DataXML.models.*;
 import com.readData.DataXML.services.LedgerService;
@@ -13,6 +14,8 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.readData.DataXML.Utility.SharedContentParser.*;
 
 @Component
 public class TransactionProcessor {
@@ -67,10 +70,11 @@ public class TransactionProcessor {
                 }
             }
             if(child.getNodeName().equals("CATEGORYALLOCATIONS.LIST")) {
-                CostCenterTransaction costCenterTransaction = costCenterTransactionProcessor.processCostCenterInTransaction(child);
-                if (costCenterTransaction !=null) {
-                    costCenterTransaction.setTransactionLedger(transactionLedger);
-                    costCenterTransactionList.add(costCenterTransaction);
+                costCenterTransactionList = costCenterTransactionProcessor.processCostCenterInTransaction(child);
+                if (costCenterTransactionList!=null && costCenterTransactionList.size()>0) {
+                    costCenterTransactionList.forEach(e->{
+                        e.setTransactionLedger(transactionLedger);
+                    });
                 }
             }
             if(child.getNodeName().equals("AMOUNT")) transactionLedger.setAMOUNT(child.getTextContent().trim());
@@ -95,7 +99,8 @@ public class TransactionProcessor {
             for (int j=0;j<transactionNodeChildNodes.getLength();j++) {
                 Node n = transactionNodeChildNodes.item(j);
                 if(n.getNodeName().equals("DATE")) transaction.setDATE(n.getTextContent().trim());
-                if(n.getNodeName().equals("GUID")) transaction.setGUID(n.getTextContent().trim());
+                if(n.getNodeName().equals("GUID")) transaction.setGuid(n.getTextContent().trim());
+                if(n.getNodeName().equals("ALTERID")) transaction.setAlterId(n.getTextContent().trim());
                 if(n.getNodeName().equals("NARRATION")) transaction.setNARRATION(n.getTextContent().trim());
                 if(n.getNodeName().equals("VOUCHERTYPENAME")) transaction.setVOUCHERTYPENAME(n.getTextContent().trim());
                 if(n.getNodeName().equals("VOUCHERNUMBER")) transaction.setVOUCHERNUMBER(n.getTextContent().trim());
@@ -111,5 +116,19 @@ public class TransactionProcessor {
         return transactionList;
     }
 
+    public List<TransactionAlterAndGuid> getAlterAndGuids(Document doc) {
+        NodeList nodeList = doc.getElementsByTagName("VOUCHER");
+        List<TransactionAlterAndGuid> transactionList = new ArrayList<>();
+
+        nodesIterator(nodeList,(n)->{
+            TransactionAlterAndGuid alterAndGuid = new TransactionAlterAndGuid();
+            nodesIterator(n.getChildNodes(),(n2)->{
+            if(haveTag(n2,"GUID")) alterAndGuid.setGuid(processContent(n2));
+            else if(haveTag(n2,"ALTERID")) alterAndGuid.setAlterId(processContent(n2));
+            });
+            transactionList.add(alterAndGuid);
+        });
+        return transactionList;
+    }
 }
 

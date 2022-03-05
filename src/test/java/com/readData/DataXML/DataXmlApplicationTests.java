@@ -23,7 +23,7 @@ class DataXmlApplicationTests {
 	@Test
 	public void  findByName() {
 		Ledger l1 = new Ledger();
-		l1.setGUID("123");
+		l1.setGuid("123");
 		l1.setName("Prakshal");
 
 

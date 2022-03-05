@@ -24,7 +24,7 @@ public class GetDataController {
     TransactionService transactionService;
 
     @Autowired
-    CostCenterService costCenterService;
+    CostCenterMasterService costCenterMasterService;
 
     @GetMapping("/getData")
     public String getLedgers(@RequestParam("type")String requestType) throws Exception {
@@ -44,7 +44,7 @@ public class GetDataController {
                 count = transactionService.processContent(requestType);
                 break;
             case DataMapping.COSTCENTER:
-                count = costCenterService.processContent(requestType);
+                count = costCenterMasterService.processContent(requestType);
                 break;
             default:
                 throw new CustomException("Invalid Query Type");

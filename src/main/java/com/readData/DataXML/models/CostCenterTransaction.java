@@ -14,10 +14,7 @@ public class CostCenterTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String GUID;
     String NAME;
-    String PARENT;
-    String ALTERID;
     String CATEGORY;
     String ISDEEMEDPOSITIVE;
     String AMOUNT;

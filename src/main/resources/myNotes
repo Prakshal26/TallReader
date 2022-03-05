@@ -1,0 +1,16 @@
+I could Have Deleted the Remaining ledgers using not in list Query.
+But it will be a manual JPQL so it was not deleting the child associated with Parent.
+FOr example on deleting Ledger it was not deleting the payment details associated with that ledger.
+
+That's why I had to take long way to delete them:
+Still the code for deleting directly is as below;
+
+    @Modifying
+    @Query(value="DELETE from Ledger where guid not in (:ids)")
+    void deleteUsersWithGuidsNotIn(@Param("ids")List<String> ids);
+
+
+    In LedgerService
+    List<String> updatedGUID = ledgerList.stream().map(Ledger::getGuid).collect(Collectors.toList());
+    ledgerRepository.deleteUsersWithGuidsNotIn(updatedGUID);
+

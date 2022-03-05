@@ -11,10 +11,7 @@ import javax.persistence.*;
 public class CostCenterMaster {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    String GUID;
+    String guid;
     String NAME;
     String PARENT;
     String ALTERID;

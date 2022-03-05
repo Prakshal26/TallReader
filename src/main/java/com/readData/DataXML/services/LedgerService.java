@@ -6,10 +6,11 @@ import com.readData.DataXML.models.Ledger;
 import com.readData.DataXML.repositories.LedgerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LedgerService {
@@ -27,10 +28,18 @@ public class LedgerService {
         this.ledgerRepository = ledgerRepository;
     }
 
+    @Transactional
     public int processContent(String requestType) throws Exception {
-       Document doc = utility.processAndGiveDoc(requestType);
 
-       List<Ledger> ledgerList = ledgerProcessor.processLedger(doc);
+       List<Ledger> ledgerList = ledgerProcessor.processLedger(utility.processAndGiveDoc(requestType));
+
+       List<String> updatedGUID = ledgerList.stream().map(Ledger::getGuid).collect(Collectors.toList());
+       List<String> existingGUID = ledgerRepository.findAllGUID();
+
+       List<String> removedIDs = existingGUID.stream().filter(e->!updatedGUID.contains(e))
+               .collect(Collectors.toList());
+
+      ledgerRepository.deleteByGuidIn(removedIDs);
        return ledgerRepository.saveAll(ledgerList).size();
     }
 

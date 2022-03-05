@@ -16,13 +16,14 @@ import java.util.List;
 public class Transaction {
 
     @Id
-    String GUID;
+    String guid;
 
     String DATE;
     String NARRATION;
     String VOUCHERTYPENAME;
     String VOUCHERNUMBER;
     String PARTYLEDGERNAME;
+    String alterId;
 
 
     @OneToMany(mappedBy = "transaction",cascade = CascadeType.ALL,orphanRemoval = true)

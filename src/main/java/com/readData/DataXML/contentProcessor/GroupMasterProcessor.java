@@ -23,7 +23,7 @@ public class GroupMasterProcessor {
             groupMaster.setGROUPNAME(groupMasterNode.getAttributes().getNamedItem("NAME").getNodeValue());
             for (int j=0;j<groupMasterNodeChildNodes.getLength();j++) {
                 Node n = groupMasterNodeChildNodes.item(j);
-                if(n.getNodeName().equals("GUID")) groupMaster.setGUID(n.getTextContent().trim());
+                if(n.getNodeName().equals("GUID")) groupMaster.setGuid(n.getTextContent().trim());
                 if(n.getNodeName().equals("PARENT")) groupMaster.setPARENT(n.getTextContent().trim());
                 if(n.getNodeName().equals("ALTERID")) groupMaster.setALTERID(n.getTextContent().trim());
             }
